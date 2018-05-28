@@ -1,0 +1,11 @@
+#spring:
+#  application:
+#    name: product-catalog
+#  cloud:
+#    config:
+#      env: default # optional
+#      label: master # optional
+#      uri: http://localhost:8888 # optional
+#management:
+#  security:
+#    enabled: false

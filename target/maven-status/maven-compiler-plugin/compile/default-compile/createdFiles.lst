@@ -1,0 +1,7 @@
+com/brunofr/controller/ProductController.class
+com/brunofr/service/impl/ProductServiceImpl.class
+com/brunofr/ProductCatalogApplication.class
+com/brunofr/service/ProductService.class
+com/brunofr/configuration/CassandraConfiguration.class
+com/brunofr/entity/Product.class
+com/brunofr/repository/ProductRepository.class

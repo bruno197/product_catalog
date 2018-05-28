@@ -1,0 +1,7 @@
+/Users/brunofr/workbench/api/product_catalog/src/main/java/com/brunofr/configuration/CassandraConfiguration.java
+/Users/brunofr/workbench/api/product_catalog/src/main/java/com/brunofr/service/ProductService.java
+/Users/brunofr/workbench/api/product_catalog/src/main/java/com/brunofr/ProductCatalogApplication.java
+/Users/brunofr/workbench/api/product_catalog/src/main/java/com/brunofr/repository/ProductRepository.java
+/Users/brunofr/workbench/api/product_catalog/src/main/java/com/brunofr/service/impl/ProductServiceImpl.java
+/Users/brunofr/workbench/api/product_catalog/src/main/java/com/brunofr/controller/ProductController.java
+/Users/brunofr/workbench/api/product_catalog/src/main/java/com/brunofr/entity/Product.java
