@@ -1,44 +1,66 @@
 package com.brunofr.configuration;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
+import com.datastax.driver.core.Cluster;
+import com.datastax.driver.core.ProtocolVersion;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.cassandra.config.AbstractCassandraConfiguration;
+import org.springframework.data.cassandra.config.CassandraClusterFactoryBean;
+import org.springframework.data.cassandra.config.SchemaAction;
+import org.springframework.data.cassandra.core.CassandraAdminOperations;
+import org.springframework.data.cassandra.core.CassandraTemplate;
 import org.springframework.data.cassandra.repository.config.EnableCassandraRepositories;
 
 @Configuration
-@EnableCassandraRepositories(basePackages = {"com.brunofr"})
-@RefreshScope
-public class CassandraConfiguration {
-//    @Autowired
-//    private Environment environment;
-//
-//    @Bean
-//    public CassandraClusterFactoryBean cluster() {
-//        CassandraClusterFactoryBean cluster = new CassandraClusterFactoryBean();
-//        cluster.setContactPoints(environment.getProperty("cassandra.contactpoints"));
-//        cluster.setPort(Integer.parseInt(environment.getProperty("cassandra.port")));
-//        return cluster;
-//    }
-//    @Bean
-//    public CassandraMappingContext mappingContext() {
-//        return new BasicCassandraMappingContext();
-//    }
-//    @Bean
-//    public CassandraConverter converter() {
-//        return new MappingCassandraConverter(mappingContext());
-//    }
-//    @Bean
-//    public CassandraSessionFactoryBean session() throws Exception {
-//        CassandraSessionFactoryBean session = new CassandraSessionFactoryBean();
-//        session.setCluster(cluster().getObject());
-//        session.setKeyspaceName(environment.getProperty("cassandra.keyspace"));
-//        session.setConverter(converter());
-//        session.setSchemaAction(SchemaAction.NONE);
-//        return session;
-//    }
-//    @Bean
-//    public CassandraOperations cassandraTemplate() throws Exception {
-//        return new CassandraTemplate(session().getObject());
-//    }
+@EnableCassandraRepositories
+public class CassandraConfiguration extends AbstractCassandraConfiguration {
+
+    private String contactPoints = "localhost";
+
+    private int port = 9042;
+
+    private String keySpace = "store";
+
+    private String basePackages = "com.brunofr.repository";
+
+    @Override
+    protected String getKeyspaceName() {
+        return keySpace;
+    }
+
+    @Override
+    protected String getContactPoints() {
+        return contactPoints;
+    }
+
+    @Override
+    protected int getPort() {
+        return port;
+    }
+
+    @Override
+    public SchemaAction getSchemaAction() {
+        return SchemaAction.CREATE_IF_NOT_EXISTS;
+    }
+
+    @Override
+    public String[] getEntityBasePackages() {
+        return new String[] {basePackages};
+    }
+
+    @Bean
+    public CassandraAdminOperations cassandraTemplate() throws Exception {
+        return (CassandraAdminOperations) new CassandraTemplate(session().getObject());
+    }
+
+    @Bean
+    public CassandraClusterFactoryBean cluster() {
+
+        CassandraClusterFactoryBean cluster =  new CassandraClusterFactoryBean();
+        cluster.setContactPoints("127.0.0.1");
+        cluster.setPort(9042);
+        cluster.setProtocolVersion(ProtocolVersion.V4);
+
+        return cluster;
+    }
 }

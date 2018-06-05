@@ -16,15 +16,12 @@ import java.util.List;
 @RequestMapping("/api")
 public class ProductController {
 
-    @Autowired
-    private ProductService productService;
-
     @GetMapping("/products")
     public List<Product> getAllProducts() {
         System.out.println("Get all products...");
 
         List<Product> products = new ArrayList<>();
-        return productService.getAll();
+        return null;
     }
 
     @PostMapping("/products/save")
@@ -32,6 +29,6 @@ public class ProductController {
         System.out.println("Create product: " + product.getName() + "...");
 
         product.setId(UUIDs.timeBased());
-        return new ResponseEntity<>(productService.saveOrUpdate(product), HttpStatus.OK);
+        return null;
     }
 }
